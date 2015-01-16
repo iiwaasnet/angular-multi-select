@@ -804,6 +804,7 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelect' , [ '$sce', '$
             $scope.selectItem = function(item, e, ng_repeat_index){
             if(e.keyCode === 13){
                     $scope.syncItems(item, e, ng_repeat_index);
+					element[0].querySelector('.multiSelectButton').focus();
                 }
             }
 
