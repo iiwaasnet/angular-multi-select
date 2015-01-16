@@ -89,7 +89,8 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelect' , [ '$sce', '$
                             '<div ng-repeat="item in filteredModel | filter:removeGroupEndMarker" class="multiSelectItem"' +
                                 'ng-class="{selected: item[ tickProperty ], horizontal: orientationH, vertical: orientationV, multiSelectGroup:item[ groupProperty ], disabled:itemIsDisabled( item )}"' +
                                 'ng-click="syncItems( item, $event, $index );"' + 
-                                'ng-mouseleave="removeFocusStyle( tabIndex );">' + 
+                                'ng-keypress="selectItem( item, $event, $index );"' +
+                                'ng-mouseleave="removeFocusStyle( tabIndex );">' +
                                 '<div class="acol" ng-if="item[ spacingProperty ] > 0" ng-repeat="i in numberToArray( item[ spacingProperty ] ) track by $index">&nbsp;</div>' +              
                                 '<div class="acol">' +
                                     '<label>' +
@@ -773,7 +774,7 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelect' , [ '$sce', '$
                             $scope.tabIndex = $scope.formElements.length - 1;
                         }                                                                 
                     }                                 
-                }    
+                }
 
                 if ( isNavigationKey === true ) {                     
 
@@ -798,6 +799,12 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelect' , [ '$sce', '$
                 }
 
                 isNavigationKey = false;
+            }
+
+            $scope.selectItem = function(item, e, ng_repeat_index){
+            if(e.keyCode === 13){
+                    $scope.syncItems(item, e, ng_repeat_index);
+                }
             }
 
             // set (add) CSS style on selected row
